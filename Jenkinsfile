@@ -15,20 +15,20 @@ pipeline {
             sh "sudo npm install"
         }
     }
- //   stage('Test') {
-   //     steps {
-     //     // Run the ReactJS tests
-       //   sh "sudo npm test"
-       // }
-   // }
-   // stage('SonarQube Analysis') {
-     // environment {
-       // scannerHome = tool 'sonarqube'
-       // }
-       // steps {
-         //   withSonarQubeEnv('sonar-qube-1') {        
-           //   sh "${scannerHome}/bin/sonar-scanner"
-       // }
+    stage('Test') {
+        steps {
+          // Run the ReactJS tests
+          sh "sudo npm test"
+        }
+    }
+    stage('SonarQube Analysis') {
+      environment {
+        scannerHome = tool 'sonarqube'
+        }
+        steps {
+            withSonarQubeEnv('sonar-qube-1') {        
+              sh "${scannerHome}/bin/sonar-scanner"
+        }
         timeout(time: 10, unit: 'MINUTES'){
           waitForQualityGate abortPipeline: true
           }
